@@ -33,7 +33,7 @@ export default function Search() {
                 setCharacterData(result.data);
                 // console.log(result);
             }).catch((error) => {
-            console.log("There was an error:", error);
+            console.log("Error while fetching comic data", error);
         });
     };
 
@@ -45,12 +45,14 @@ export default function Search() {
 
         const url = `https://gateway.marvel.com:443/v1/public/characters/${characterId}/comics?apikey=${publicKey}&hash=${hash}&ts=${timeStamp}`;    
 
-        fetch(url).then(response => response.json()).then(
-            result => {
-                setCharacterData(result.data);
-                // console.log(result);
-            }).catch((error) => {
-            console.log("Error while fetching comic data", error);
+        fetch(url)
+        .then((response) => response.json())
+        .then((result) => {
+          setComicData(result.data);
+          console.log(result.data);
+        })
+        .catch(() => {
+          console.log("error while getting comic data");
         });
     };
 
